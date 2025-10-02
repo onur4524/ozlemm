@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gezilecek Yerler ✈️ Özlem & Onur</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Değişkenleri - Görsel Uyumlu Teması */
+        :root {
+            --bg: #f5f5f5; 
+            --primary-text: #505050; 
+            --title-color: #6a0dad; 
+            --back-btn-bg: #e1bfff; 
+            --radius: 18px;
+            --max-width: 1000px;
+            --countdown-bg: #ff6b6b; /* Canlı Kırmızı Sayaç Rengi */
+        }
+
+        /* Global Stil ve Arkaplan */
+        * {box-sizing: border-box; margin: 0; padding: 0;}
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--bg);
+            color: var(--primary-text);
+            line-height: 1.6;
+            padding-bottom: 4rem;
+            will-change: auto; 
+            overflow-x: hidden;
+        }
+        ::-webkit-scrollbar {
+            width: 0;
+            background: transparent;
+        }
+        
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header ve Başlık Alanı */
+        header {
+            padding: 2rem 1rem 1rem;
+        }
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+        .top-left {
+            display: flex;
+            align-items: center;
+        }
+        .back-btn {
+            text-decoration: none;
+            color: var(--title-color);
+            background: var(--back-btn-bg);
+            padding: 8px 12px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-right: 15px;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .back-btn:active {
+             background: #c9a7ff; 
+        }
+
+        .page-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.2rem;
+            color: var(--title-color);
+            font-weight: 800;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+        }
+        .page-title span {
+            font-size: 1.5em; 
+            margin-left: 10px;
+            color: #ff6b6b; 
+        }
+        
+        /* Canlı Sayaç */
+        #places-to-go {
+            background: #fff;
+            padding: 5px 15px;
+            border-radius: 50px;
+            font-weight: 800;
+            color: var(--title-color);
+            font-size: 0.9rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Lokasyon Etiketi */
+        .location-tag {
+            text-align: center;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            margin: 0 auto 2.5rem;
+            width: fit-content;
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+        }
+
+        /* Kartlar Bölümü */
+        .travel-grid {
+            display: grid;
+            grid-template-columns: 1fr; 
+            gap: 20px;
+            margin-top: 1rem;
+        }
+        .travel-card {
+            min-height: 180px; 
+            border-radius: var(--radius);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+            padding: 20px;
+            color: white; 
+            transition: transform 0.2s ease-in-out;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer; 
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        /* Arka Plan Resimleri */
+        .card-pink { 
+            background-image: linear-gradient(135deg, rgba(255,133,162,0.8), rgba(255,92,138,0.8)), url('paris-bg.jpg'); 
+        }
+        .card-blue { 
+            background-image: linear-gradient(135deg, rgba(92,153,255,0.8), rgba(71,119,209,0.8)), url('santorini-bg.jpg'); 
+        }
+        .card-fuchsia { 
+            background-image: linear-gradient(135deg, rgba(255,102,196,0.8), rgba(204,51,153,0.8)), url('tokyo-bg.jpg'); 
+        }
+        .card-purple { 
+            background-image: linear-gradient(135deg, rgba(161,140,209,0.8), rgba(110,74,158,0.8)), url('istanbul-bg.jpg'); 
+        }
+
+        .travel-card.visited {
+            background-image: none;
+            background: linear-gradient(135deg, #2ecc71, #27ae60); 
+            opacity: 0.95;
+            box-shadow: 0 4px 10px rgba(45, 204, 113, 0.4); 
+        }
+        
+        @media (min-width: 768px) {
+            .travel-grid {
+                grid-template-columns: 1fr 1fr; 
+            }
+            .travel-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            }
+        }
+        
+        .travel-card h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            z-index: 2;
+            position: relative;
+        }
+        .travel-card p {
+            font-size: 1rem;
+            font-weight: 400;
+            opacity: 0.9;
+            margin: 0 0 10px 0; 
+            z-index: 2;
+            position: relative;
+        }
+        .travel-card .icon {
+            font-size: 1.5em;
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            opacity: 0.2; 
+            z-index: 1;
+        }
+
+        /* Tahmin Butonu (Aynı kaldı) */
+        .guess-button {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1rem;
+            z-index: 5;
+            transition: background 0.2s;
+            border: none;
+        }
+        .guess-bubble {
+            position: absolute;
+            top: 45px;
+            left: 5px;
+            background: white;
+            color: var(--primary-text);
+            padding: 10px;
+            border-radius: 10px;
+            width: 200px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+            z-index: 10;
+        }
+        .guess-bubble::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 15px;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 5px solid white;
+        }
+        .guess-button:hover + .guess-bubble,
+        .guess-button:focus + .guess-bubble {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Romantik Açıklama Alanı */
+        .romantic-note {
+            background: rgba(0, 0, 0, 0.3);
+            color: white;
+            font-size: 0.9rem;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
+        }
+        .travel-card:hover .romantic-note,
+        .travel-card.active .romantic-note {
+            max-height: 150px; 
+            opacity: 1;
+        }
+        
+        /* Durum Butonu Stili */
+        .status-badge {
+            background: rgba(0, 0, 0, 0.2);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-block;
+            transition: 0.2s;
+            z-index: 3;
+            position: relative;
+        }
+
+        /* İstatistik Paneli */
+        .stats-panel {
+            display: flex;
+            justify-content: space-around;
+            padding: 1.8rem;
+            background: var(--title-color); 
+            color: white;
+            border-radius: var(--radius);
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+            text-align: center;
+        }
+        .stat-item h3 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1;
+            font-family: 'Poppins', monospace;
+        }
+
+        /* YENİ ÖZELLİK: Canlı Geri Sayım Kutusu */
+        .countdown-box {
+            background: var(--countdown-bg);
+            color: white;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            text-align: center;
+            margin-top: 2.5rem;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+        .countdown-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+        }
+        .countdown-timer {
+            font-size: 2.5rem;
+            font-family: 'Poppins', monospace;
+            font-weight: 800;
+            line-height: 1;
+        }
+        .countdown-small {
+            font-size: 0.8rem;
+            display: inline-block;
+            margin: 0 5px;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 480px) {
+            .countdown-timer {
+                font-size: 1.8rem;
+            }
+            .countdown-box h3 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <header>
+            <div class="top-bar">
+                <div class="top-left">
+                    <a href="index.html" class="back-btn">← Ana Sayfa</a>
+                    <h1 class="page-title">Gezilecek Yerler<span>✈️</span></h1>
+                </div>
+                <div id="places-to-go">
+                    <span id="remaining-count">4</span> Yer Kaldı!
+                </div>
+            </div>
+            
+            <div class="location-tag">
+                📍 Birlikte Keşfedeceğimiz Dünya
+            </div>
+        </header>
+
+        <div class="countdown-box">
+            <h3>En Yakın Geziye Kalan Süre: Kapadokya</h3>
+            <div class="countdown-timer" id="countdown-timer">
+                00 Gün 00:00:00
+            </div>
+            <p>
+                <span class="countdown-small">G: Gün</span>
+                <span class="countdown-small">S: Saat</span>
+                <span class="countdown-small">D: Dakika</span>
+                <span class="countdown-small">S: Saniye</span>
+            </p>
+        </div>
+
+
+        <section class="main-content">
+            <p style="text-align:center; margin-top: 2rem; margin-bottom: 2rem;">Kartlara dokunarak haritayı aç, butona basarak "Gezildi" olarak işaretle. **"?"** ikonuna basarak o seyahate dair tahminini görebilirsin!</p>
+
+            <div class="travel-grid">
+                
+                <div class="travel-card card-pink" data-id="paris" data-icon="🗼" data-location="Paris, Fransa">
+                    <button class="guess-button" onclick="this.focus()" tabindex="0">?</button>
+                    <div class="guess-bubble">
+                        Tahmin: Özlem, Eyfel'i ilk gördüğünde kesin ağlayacak. ❤️
+                    </div>
+                    <span class="icon">🗼</span>
+                    <h3>Paris, Fransa</h3>
+                    <div>
+                        <p>Aşk şehri... Eyfel Kulesi'nin altında el ele yürüyeceğiz. ✨</p>
+                        <div class="romantic-note">
+                            *Bu gezinin sonunda sana, hayatımızın en büyük sürprizini yapacağım. Söz!*
+                        </div>
+                    </div>
+                    <div class="status-badge" onclick="toggleVisited(event, 'paris')">Planlandı 📌</div>
+                </div>
+
+                <div class="travel-card card-blue" data-id="santorini" data-icon="🏖️" data-location="Santorini, Yunanistan">
+                    <button class="guess-button" onclick="this.focus()" tabindex="0">?</button>
+                    <div class="guess-bubble">
+                        Tahmin: Santorini'de 500'den fazla fotoğraf çekileceğiz! 📸
+                    </div>
+                    <span class="icon">🏖️</span>
+                    <h3>Santorini, Yunanistan</h3>
+                    <div>
+                        <p>Masmavi deniz kenarında günbatımını seyredip, kadeh tokuşturacağız. 🥂</p>
+                        <div class="romantic-note">
+                            *O meşhur beyaz evlerin önünde, sana bir daha aşık olacağım.*
+                        </div>
+                    </div>
+                    <div class="status-badge" onclick="toggleVisited(event, 'santorini')">Planlandı 📌</div>
+                </div>
+
+                <div class="travel-card card-fuchsia" data-id="tokyo" data-icon="🌸" data-location="Tokyo, Japonya">
+                    <button class="guess-button" onclick="this.focus()" tabindex="0">?</button>
+                    <div class="guess-bubble">
+                        Tahmin: Tokyo'da kaybolup, birbirimizi bulduğumuz o an...
+                    </div>
+                    <span class="icon">🌸</span>
+                    <h3>Tokyo, Japonya</h3>
+                    <div>
+                        <p>Kiraz çiçekleri altında Japon kültürünü deneyimleyecek, birbirinden ilginç lezzetler tadacağız.</p>
+                        <div class="romantic-note">
+                            *Sana Japon usulü, saygıyla eğilerek ne kadar değerli olduğunu söyleyeceğim.*
+                        </div>
+                    </div>
+                    <div class="status-badge" onclick="toggleVisited(event, 'tokyo')">Planlandı 📌</div>
+                </div>
+                
+                <div class="travel-card card-purple" data-id="istanbul" data-icon="☕" data-location="İstanbul, Türkiye">
+                    <button class="guess-button" onclick="this.focus()" tabindex="0">?</button>
+                    <div class="guess-bubble">
+                        Tahmin: İstanbul'da hayatımızın en iyi boğaz manzaralı çayını içeceğiz!
+                    </div>
+                    <span class="icon">☕</span>
+                    <h3>İstanbul, Türkiye</h3>
+                    <div>
+                        <p>Galata Kulesi'nden Boğaz manzarasına karşı kahvemizi içeceğimiz o an...</p>
+                        <div class="romantic-note">
+                            *Kuleye çıkıp, tüm İstanbul'a "Özlem benim!" diye bağıracağım.*
+                        </div>
+                    </div>
+                    <div class="status-badge" onclick="toggleVisited(event, 'istanbul')">Planlandı 📌</div>
+                </div>
+                
+            </div>
+        </section>
+        
+        <section id="istatistik">
+            <h2 style="font-family:'Poppins', sans-serif; font-size:2rem; color:white; margin-bottom:1.5rem; text-align:center;">Aşkımızın Seyahat Karnesi</h2>
+            <div class="stats-panel" style="background: var(--title-color); padding:1.8rem;">
+                <div class="stat-item">
+                    <h3 id="stat-visited">0</h3>
+                    <p>Gezilen Yer</p>
+                </div>
+                <div class="stat-item">
+                    <h3 id="stat-planned">4</h3>
+                    <p>Planlanan Rota</p>
+                </div>
+                <div class="stat-item">
+                    <h3>100%</h3>
+                    <p>Aşk Dolu Gezi Başarısı</p>
+                </div>
+            </div>
+        </section>
+
+
+        <footer>
+            <p>💖 Özlem & Onur Keşif Ekibi — Rüyalarımızı gerçeğe çeviriyoruz!</p>
+        </footer>
+    </div>
+    
+<script>
+    // Dinamik Durum Takibi, Sayaç ve Harita İşlevleri
+
+    let visitedPlaces = JSON.parse(localStorage.getItem('visitedPlaces')) || {};
+    const totalPlaces = document.querySelectorAll('.travel-card').length;
+    const statVisited = document.getElementById('stat-visited');
+    const statPlanned = document.getElementById('stat-planned');
+    const remainingCountSpan = document.getElementById('remaining-count');
+    const countdownTimer = document.getElementById('countdown-timer');
+    
+    // YENİ ÖZELLİK: Geri Sayım Hedef Tarihi (Örn: Kapadokya için 2026 Yazı)
+    const targetDate = new Date("2026-06-21T00:00:00").getTime(); 
+
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.travel-card').forEach(card => {
+            const id = card.dataset.id;
+            const statusBadge = card.querySelector('.status-badge');
+            
+            // Başlangıç durumu ayarla
+            if (visitedPlaces[id]) {
+                card.classList.add('visited');
+                statusBadge.textContent = 'Gezildi! ✅';
+            }
+            
+            // Harita Linki ve Açıklama Gösterimi için tıklama olayını ata
+            card.addEventListener('click', (event) => {
+                // Eğer butonlara tıklanmadıysa haritayı aç
+                if (!event.target.classList.contains('status-badge') && !event.target.classList.contains('guess-button')) {
+                    const location = card.dataset.location;
+                    window.open(`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location)}`, '_blank');
+                    
+                    // Mobilde romantik notu açma/kapama özelliği
+                    card.classList.toggle('active');
+                }
+            });
+        });
+        updateStats();
+        // Geri Sayımı başlat
+        setInterval(updateCountdown, 1000);
+    });
+    
+    // Geri Sayım Fonksiyonu
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = targetDate - now;
+
+        if (distance < 0) {
+            countdownTimer.innerHTML = "GEZİ BAŞLADI! 🥂";
+            return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        countdownTimer.innerHTML = `${days} <span style="font-size: 1.5rem; font-weight: 400;">G</span> 
+                                   ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+
+    // Durum değiştirme işlevi
+    function toggleVisited(event, id) {
+        event.stopPropagation();
+        const card = document.querySelector(`.travel-card[data-id="${id}"]`);
+        const statusBadge = event.target;
+
+        if (visitedPlaces[id]) {
+            card.classList.remove('visited');
+            card.classList.remove('active');
+            statusBadge.textContent = 'Planlandı 📌';
+            delete visitedPlaces[id];
+        } else {
+            card.classList.add('visited');
+            card.classList.add('active');
+            statusBadge.textContent = 'Gezildi! ✅';
+            visitedPlaces[id] = true;
+        }
+
+        localStorage.setItem('visitedPlaces', JSON.stringify(visitedPlaces));
+        updateStats();
+    }
+    
+    // İstatistik Güncelleme İşlevi
+    function updateStats() {
+        const visitedCount = Object.keys(visitedPlaces).length;
+        const plannedCount = totalPlaces - visitedCount;
+        
+        statVisited.textContent = visitedCount;
+        statPlanned.textContent = plannedCount;
+        
+        remainingCountSpan.textContent = plannedCount;
+        
+        if (plannedCount === 0) {
+            document.getElementById('places-to-go').textContent = 'Tebrikler! Hepsi Gezildi! 🎉';
+        }
+    }
+</script>
+</body>
+</html>

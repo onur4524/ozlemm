@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Özlem & Onur - Sonsuz Anılarımız 💜</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        /* CSS Değişkenleri - Proje Geneli Uyumlu Tema */
+        :root {
+            --bg-start: #fce7fe; 
+            --bg-end: #d9b3ff; 
+            --primary-color: #6a0dad; 
+            --accent-color: #ff6b6b; 
+            --card-bg: #ffffff;
+            --text-dark: #333;
+            --radius: 18px;
+            --max-width: 1100px;
+        }
+
+        /* Global Stil */
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
+            min-height: 100vh;
+            color: var(--text-dark);
+            line-height: 1.6;
+            padding-bottom: 4rem;
+        }
+        .container {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header ve Başlık Stilleri */
+        header {
+            text-align: center;
+            padding: 2.5rem 1rem 1rem;
+        }
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .back-btn {
+            text-decoration: none;
+            color: var(--primary-color);
+            background: #e1bfff;
+            padding: 8px 12px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+        .page-title {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3.5rem; 
+            color: var(--primary-color);
+            text-shadow: 2px 2px 5px rgba(106, 13, 173, 0.2);
+        }
+        header p {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+        
+        /* 1. ÖZELLİK: Duygusal Giriş Ayırıcısı */
+        .hero-separator {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin: 2rem 0;
+            animation: pulseBeat 2s infinite;
+        }
+        @keyframes pulseBeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Bölüm Başlıkları */
+        section h2 {
+            font-size: 2.2rem;
+            color: var(--text-dark);
+            font-weight: 800;
+            text-align: center;
+            margin-top: 3rem;
+            margin-bottom: 1.5rem;
+        }
+        /* 2. ÖZELLİK: Kategori Vurgusu Çizgisi */
+        .separator {
+            width: 80px;
+            height: 3px;
+            background: var(--accent-color);
+            border-radius: 3px;
+            margin: 0 auto 2.5rem;
+        }
+
+        /* GALERİ YAPISI */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 25px;
+            margin-top: 1rem;
+        }
+        
+        /* Galeri Öğesi Kartı */
+        .gallery-item {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            display: flex; 
+            flex-direction: column;
+            position: relative; /* Filigran için */
+        }
+        .gallery-item:hover {
+            transform: translateY(-8px); 
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* 3. ÖZELLİK: Filigran İkon */
+        .item-filigran::before {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 15vw; /* Büyük ve soluk */
+            color: var(--primary-color);
+            opacity: 0.1;
+            z-index: 1;
+            font-weight: 900;
+            pointer-events: none;
+        }
+        .item-image::before { content: '📸'; }
+        .item-video::before { content: '🎬'; }
+
+
+        /* Görsel Alanı */
+        .media-container {
+            position: relative;
+            overflow: hidden;
+            height: 250px; 
+            flex-shrink: 0;
+        }
+        
+        .gallery-item img, .gallery-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s;
+        }
+        .gallery-item:hover img, .gallery-item:hover video {
+            transform: scale(1.05); 
+        }
+        
+        /* Kart Altı Yazı */
+        .memory-info {
+            padding: 15px;
+            text-align: center;
+            flex-grow: 1; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+        }
+        .memory-info h3 {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            font-weight: 700;
+        }
+        .memory-info p {
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            opacity: 0.7;
+            font-style: italic;
+            border-top: 1px solid #eee;
+            padding-top: 10px;
+        }
+
+        /* Lightbox (Aynı kaldı) */
+        #lightbox {
+            display: none; 
+            position: fixed; 
+            top: 0; left: 0; 
+            width: 100vw; 
+            height: 100vh; 
+            background: rgba(0,0,0,0.95); 
+            align-items: center; 
+            justify-content: center; 
+            z-index: 1000;
+        }
+        #lightbox.visible { display: flex; }
+        .close-btn {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: #fff;
+            font-size: 50px;
+            font-weight: bold;
+            transition: color 0.2s;
+            cursor: pointer;
+            text-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+        .close-btn:hover { color: var(--accent-color); }
+
+        /* Mobil Uyum */
+        @media (max-width: 480px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            .page-title {
+                font-size: 3rem;
+            }
+            .item-filigran::before { font-size: 30vw; } /* Mobilde daha küçük filigran */
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <a href="index.html" class="back-btn">← Ana Sayfa</a>
+            </div>
+            <h1 class="page-title">Sonsuz Anılarımız 💜</h1>
+            <p>Birlikte attığımız her adım, kalbimize yazılan bir hikayedir. Bu sayfa, o hikayenin en güzel kareleridir.</p>
+        </header>
+        
+        <div class="hero-separator">
+            💖
+        </div>
+
+        <section id="gallery-content">
+            <h2>Özel Fotoğraflarımız</h2>
+            <div class="separator"></div>
+
+            <div class="gallery">
+                
+                <div class="gallery-item item-image" data-type="image" data-src="göz1.jpg" onclick="openLightbox(this)">
+                    <div class="media-container">
+                        <img src="göz1.jpg" alt="O İlk Bakış">
+                    </div>
+                    <div class="memory-info">
+                        <h3>O İlk Bakış</h3>
+                        <p>Tanıştığımız günün ilk karesi. O gözler...</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item item-image" data-type="image" data-src="112.jpg" onclick="openLightbox(this)">
+                    <div class="media-container">
+                        <img src="112.jpg" alt="Yaz Tatili">
+                    </div>
+                    <div class="memory-info">
+                        <h3>İlk Yaz Tatilimiz</h3>
+                        <p>Deniz, kum, güneş ve sen. Hayatımın en güzel yazıydı.</p>
+                    </div>
+                </div>
+
+                                <div class="gallery-item item-image" data-type="image" data-src="114.jpg" onclick="openLightbox(this)">
+                    <div class="media-container">
+                        <img src="114.jpg" alt="Sürpriz Anı">
+                    </div>
+                    <div class="memory-info">
+                        <h3>Unutulmaz Sürpriz</h3>
+                        <p>Doğum günümde yaptığın o eşsiz sürpriz karşısında şaşkınlığım.</p>
+                    </div>
+                </div>
+
+                <div class="gallery-item item-video" data-type="video" data-src="dans.mp4" onclick="openLightbox(this)">
+                    <div class="media-container">
+                        <video src="dans.mp4" muted loop autoplay></video>
+                    </div>
+                    <div class="memory-info">
+                        <h3>İlk Dansımız</h3>
+                        <p>Komik ve heyecanlı anlar... O unutulmaz ilk dans.</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item item-video" data-type="video" data-src="onurgol.mp4" onclick="openLightbox(this)">
+                    <div class="media-container">
+                        <video src="onurgol.mp4" muted loop autoplay></video>
+                    </div>
+                    <div class="memory-info">
+                        <h3>Yıl Dönümü Kutlaması</h3>
+                        <p>Sana hazırladığım küçük hediyeler ve o tatlı gülüşün.</p>
+                    </div>
+                </div>
+                
+                <div class="gallery-item item-video" data-type="video" data-src="202509261459.mp4" onclick="openLightbox(this)">
+                    <div class="media-container">
+                        <video src="202509261459.mp4" muted loop autoplay></video>
+                    </div>
+                    <div class="memory-info">
+                        <h3>Kış Gezintisi</h3>
+                        <p>Karlı bir İstanbul gününden romantik kısa bir anı.</p>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+    </div>
+
+    <div id="lightbox" onclick="closeLightbox()">
+        <span class="close-btn">&times;</span>
+        <img id="lightbox-image" style="display:none; max-width:90%; max-height:90%; border-radius:var(--radius);">
+        <video id="lightbox-video" controls style="display:none; max-width:90%; max-height:90%; border-radius:var(--radius);"></video>
+    </div>
+
+<script>
+    const lightbox = document.getElementById('lightbox');
+    const lbImage = document.getElementById('lightbox-image');
+    const lbVideo = document.getElementById('lightbox-video');
+
+    function openLightbox(item) {
+        const type = item.dataset.type;
+        const src = item.dataset.src;
+
+        lbImage.style.display = 'none';
+        lbVideo.style.display = 'none';
+        lbVideo.pause(); 
+        lbVideo.currentTime = 0; 
+
+        if (type === 'image') {
+            lbImage.src = src;
+            lbImage.style.display = 'block';
+        } else if (type === 'video') {
+            lbVideo.src = src;
+            lbVideo.style.display = 'block';
+            lbVideo.play().catch(error => {
+                 console.log("Video otomatik oynatılamadı.");
+            }); 
+        }
+        
+        lightbox.classList.add('visible');
+    }
+
+    function closeLightbox() {
+        lbVideo.pause(); 
+        lbVideo.currentTime = 0; 
+        lightbox.classList.remove('visible');
+    }
+
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox || e.target.classList.contains('close-btn')) {
+            closeLightbox();
+        }
+    });
+</script>
+</body>
+</html>
