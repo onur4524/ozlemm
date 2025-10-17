@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Beni affeder misin aşkımm?</title>
- <link rel="icon" type="kedi.png" href="kedi.png"> 
+<link rel="icon" type="kedi.png" href="kedi.png"> 
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
     /* TEMEL RENKLER VE FONTLAR */
@@ -155,21 +155,31 @@
         font-family: 'Poppins', sans-serif;
     }
 
-    /* Mobil Uyum */
+    /* MOBİL UYUM (600px ve altı) */
     @media (max-width: 600px) {
         h1 { font-size: 2.5rem; }
         .btn-area {
-            flex-direction: column;
-            gap: 20px;
+            /* Mobil: Butonları yatayda ortalar, üst üste gelme sorununu çözer */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: row; 
+            flex-wrap: wrap; /* Butonlar sığmazsa alt satıra düşer */
             height: auto;
-            padding-bottom: 20px;
+            padding: 10px;
         }
         button {
-            position: static; 
-            transform: none !important;
-            width: 80%;
-            max-width: 250px;
-            margin: 5px 0;
+            /* Mobil: Butonları statik yapar ve kaçış animasyonunu iptal eder */
+            position: relative; /* Absolute'dan kurtuldu */
+            transform: none !important; /* Büyümeyi/kaçmayı iptal et */
+            width: 45%; /* Yan yana durması için genişlik */
+            max-width: 180px;
+            margin: 5px; /* Aralarında boşluk bırakır */
+            font-size: 1.2rem;
+        }
+        #yes, #no {
+             left: auto;
+             top: auto;
         }
     }
 </style>
@@ -201,7 +211,6 @@
   
   let yesScale = 1.0; 
   let moving = false;
-  // YENİ: Evet butonunun minimum güvenli yarıçapı (piksel cinsinden)
   const yesSafetyRadius = 150; 
 
 
